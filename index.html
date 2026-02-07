@@ -527,6 +527,12 @@
         function calculateFitnessAge() {
             const gender = document.getElementById('gender').value;
             const age = parseInt(document.getElementById('age').value);
+
+            // Track calculation event in Google Analytics
+            gtag('event', 'calculate_fitness_age', {
+                'event_category': 'engagement',
+                'event_label': gender
+            });
             let bodyweight = parseFloat(document.getElementById('bodyweight').value);
             let bench = parseFloat(document.getElementById('bench').value);
             let squat = parseFloat(document.getElementById('squat').value);
