@@ -715,6 +715,7 @@
         }
 
         function shareTwitter() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'x'});
             const fitnessAge = document.getElementById('fitnessAge').textContent;
             const age = document.getElementById('age').value;
             const text = `I'm ${age} but my fitness age is ${fitnessAge}! Find out yours:`;
@@ -723,11 +724,13 @@
         }
 
         function shareFacebook() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'facebook'});
             const url = window.location.href;
             window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
         }
 
         function shareTikTok() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'tiktok'});
             const fitnessAge = document.getElementById('fitnessAge').textContent;
             const age = document.getElementById('age').value;
             const text = `I'm ${age} but my fitness age is ${fitnessAge}! 💪🔥\n\nFind out yours: ${window.location.href}`;
