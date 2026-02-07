@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Age Calculator - What's Your Real Fitness Age?</title>
+    <meta name="description" content="Find out your true fitness age based on your strength. Compare your lifts to see if you're aging like fine wine or need to step it up!">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5975423142692783"
+     crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .unit-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .unit-btn {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            background: white;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .unit-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .calculate-btn:active {
+            transform: translateY(0);
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .fitness-age-display {
+            font-size: 5em;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 20px 0;
+        }
+
+        .age-comparison {
+            font-size: 1.5em;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .verdict {
+            font-size: 1.3em;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        .verdict.excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .verdict.good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .verdict.average {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .verdict.below {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .breakdown {
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .breakdown h3 {
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .lift-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .lift-stat:last-child {
+            border-bottom: none;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .share-twitter {
+            background: #000000;
+            color: white;
+        }
+
+        .share-facebook {
+            background: #4267B2;
+            color: white;
+        }
+
+        .share-tiktok {
+            background: #000000;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .share-tiktok::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #25F4EE 0%, #FE2C55 100%);
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+        .share-tiktok span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .share-copy {
+            background: #28a745;
+            color: white;
+            margin-top: 10px;
+        }
+
+        .reset-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .ad-placeholder {
+            background: #f8f9fa;
+            border: 2px dashed #dee2e6;
+            border-radius: 10px;
+            padding: 60px 20px;
+            text-align: center;
+            color: #999;
+            margin: 20px 0;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.95em;
+        }
+
+        .affiliate-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .affiliate-section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .affiliate-product {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .affiliate-product:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+
+        .affiliate-product:last-child {
+            margin-bottom: 0;
+        }
+
+        .affiliate-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .affiliate-info {
+            flex: 1;
+        }
+
+        .affiliate-title {
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .affiliate-desc {
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        .affiliate-cta {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .affiliate-disclosure {
+            font-size: 0.75em;
+            color: #999;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .fitness-age-display {
+                font-size: 4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>💪 Fitness Age Calculator</h1>
+            <p class="subtitle">Discover your TRUE fitness age based on strength</p>
+
+            <div id="calculator">
+                <div class="unit-toggle">
+                    <button class="unit-btn active" onclick="setUnits('lbs')">Pounds (lbs)</button>
+                    <button class="unit-btn" onclick="setUnits('kg')">Kilograms (kg)</button>
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Your Actual Age</label>
+                    <input type="number" id="age" placeholder="e.g., 35" min="15" max="80">
+                </div>
+
+                <div class="form-group">
+                    <label>Bodyweight <span id="bw-unit">(lbs)</span></label>
+                    <input type="number" id="bodyweight" placeholder="e.g., 180" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Bench Press 1RM <span id="bench-unit">(lbs)</span></label>
+                    <input type="number" id="bench" placeholder="e.g., 225" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Squat 1RM <span id="squat-unit">(lbs)</span></label>
+                    <input type="number" id="squat" placeholder="e.g., 315" step="0.1">
+                </div>
+
+                <div class="form-group">
+                    <label>Deadlift 1RM <span id="deadlift-unit">(lbs)</span></label>
+                    <input type="number" id="deadlift" placeholder="e.g., 405" step="0.1">
+                </div>
+
+                <div class="info-box">
+                    <strong>Don't know your 1RM?</strong> Use an online calculator or estimate based on your working sets.
+                </div>
+
+                <button class="calculate-btn" onclick="calculateFitnessAge()">Calculate My Fitness Age 🔥</button>
+            </div>
+
+            <div id="results" class="results">
+                <h2>Your Fitness Age</h2>
+                <div class="fitness-age-display" id="fitnessAge">--</div>
+                <div class="age-comparison" id="ageComparison"></div>
+                <div class="verdict" id="verdict"></div>
+
+                <div class="breakdown">
+                    <h3>Strength Breakdown</h3>
+                    <div class="lift-stat">
+                        <span>Bench Press:</span>
+                        <strong id="benchRating">--</strong>
+                    </div>
+                    <div class="lift-stat">
+                        <span>Squat:</span>
+                        <strong id="squatRating">--</strong>
+                    </div>
+                    <div class="lift-stat">
+                        <span>Deadlift:</span>
+                        <strong id="deadliftRating">--</strong>
+                    </div>
+                    <div class="lift-stat">
+                        <span>Overall Rating:</span>
+                        <strong id="overallRating">--</strong>
+                    </div>
+                </div>
+
+                <div class="share-buttons">
+                    <button class="share-btn share-twitter" onclick="shareTwitter()">Share on X</button>
+                    <button class="share-btn share-facebook" onclick="shareFacebook()">Share on Facebook</button>
+                    <button class="share-btn share-tiktok" onclick="shareTikTok()"><span>TikTok</span></button>
+                </div>
+                <button class="share-btn share-copy" onclick="copyResults()">📋 Copy Results</button>
+                <button class="reset-btn" onclick="resetCalculator()">Calculate Again</button>
+
+                <div class="affiliate-section">
+                    <h3>⚡ Supplements to Boost Your Lifts</h3>
+
+                    <!-- AFFILIATE LINK 1: Replace # with your Amazon/affiliate link -->
+                    <a href="https://amzn.to/4rx592B" class="affiliate-product" target="_blank" rel="noopener">
+                        <span class="affiliate-icon">💊</span>
+                        <div class="affiliate-info">
+                            <div class="affiliate-title">Creatine Monohydrate</div>
+                            <div class="affiliate-desc">The #1 proven supplement for strength & power</div>
+                        </div>
+                        <span class="affiliate-cta">Shop Now</span>
+                    </a>
+
+                    <!-- AFFILIATE LINK 2: Replace # with your Amazon/affiliate link -->
+                    <a href="https://amzn.to/4adnMmJ" class="affiliate-product" target="_blank" rel="noopener">
+                        <span class="affiliate-icon">🥤</span>
+                        <div class="affiliate-info">
+                            <div class="affiliate-title">Whey Protein</div>
+                            <div class="affiliate-desc">Build muscle & recover faster between sessions</div>
+                        </div>
+                        <span class="affiliate-cta">Shop Now</span>
+                    </a>
+
+                    <!-- AFFILIATE LINK 3: Replace # with your Amazon/affiliate link -->
+                    <a href="https://amzn.to/4qrXLou" class="affiliate-product" target="_blank" rel="noopener">
+                        <span class="affiliate-icon">⚡</span>
+                        <div class="affiliate-info">
+                            <div class="affiliate-title">Pre-Workout</div>
+                            <div class="affiliate-desc">Energy & focus to crush your PRs</div>
+                        </div>
+                        <span class="affiliate-cta">Shop Now</span>
+                    </a>
+
+                    <div class="affiliate-disclosure">Affiliate links - we may earn a commission</div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Coming Soon Section -->
+        <div class="card" style="text-align: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+            <h3>🎯 More Fitness Calculators Coming Soon!</h3>
+            <p style="margin-top: 10px;">• Animal Strength Comparison<br>• What % Can You Outlift<br>• Workout Streak Tracker</p>
+        </div>
+    </div>
+
+    <script>
+        let currentUnits = 'lbs';
+
+        function setUnits(units) {
+            currentUnits = units;
+            document.querySelectorAll('.unit-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const unitText = units === 'lbs' ? '(lbs)' : '(kg)';
+            document.querySelectorAll('#bw-unit, #bench-unit, #squat-unit, #deadlift-unit').forEach(el => {
+                el.textContent = unitText;
+            });
+        }
+
+        function calculateFitnessAge() {
+            const gender = document.getElementById('gender').value;
+            const age = parseInt(document.getElementById('age').value);
+            let bodyweight = parseFloat(document.getElementById('bodyweight').value);
+            let bench = parseFloat(document.getElementById('bench').value);
+            let squat = parseFloat(document.getElementById('squat').value);
+            let deadlift = parseFloat(document.getElementById('deadlift').value);
+
+            if (!age || !bodyweight || !bench || !squat || !deadlift) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            // Convert to lbs if needed
+            if (currentUnits === 'kg') {
+                bodyweight *= 2.20462;
+                bench *= 2.20462;
+                squat *= 2.20462;
+                deadlift *= 2.20462;
+            }
+
+            // Calculate ratios
+            const benchRatio = bench / bodyweight;
+            const squatRatio = squat / bodyweight;
+            const deadliftRatio = deadlift / bodyweight;
+
+            // Strength standards (simplified, based on bodyweight ratios)
+            // These are rough averages - higher ratios = younger fitness age
+            const getStrengthAge = (ratio, lift, gender) => {
+                let standards;
+
+                if (gender === 'male') {
+                    if (lift === 'bench') {
+                        standards = [
+                            { age: 20, ratio: 1.5 },
+                            { age: 25, ratio: 1.3 },
+                            { age: 30, ratio: 1.15 },
+                            { age: 35, ratio: 1.0 },
+                            { age: 40, ratio: 0.9 },
+                            { age: 50, ratio: 0.75 },
+                            { age: 60, ratio: 0.6 }
+                        ];
+                    } else if (lift === 'squat') {
+                        standards = [
+                            { age: 20, ratio: 2.0 },
+                            { age: 25, ratio: 1.8 },
+                            { age: 30, ratio: 1.6 },
+                            { age: 35, ratio: 1.4 },
+                            { age: 40, ratio: 1.2 },
+                            { age: 50, ratio: 1.0 },
+                            { age: 60, ratio: 0.8 }
+                        ];
+                    } else { // deadlift
+                        standards = [
+                            { age: 20, ratio: 2.5 },
+                            { age: 25, ratio: 2.2 },
+                            { age: 30, ratio: 2.0 },
+                            { age: 35, ratio: 1.75 },
+                            { age: 40, ratio: 1.5 },
+                            { age: 50, ratio: 1.25 },
+                            { age: 60, ratio: 1.0 }
+                        ];
+                    }
+                } else { // female
+                    if (lift === 'bench') {
+                        standards = [
+                            { age: 20, ratio: 0.9 },
+                            { age: 25, ratio: 0.8 },
+                            { age: 30, ratio: 0.7 },
+                            { age: 35, ratio: 0.6 },
+                            { age: 40, ratio: 0.5 },
+                            { age: 50, ratio: 0.4 },
+                            { age: 60, ratio: 0.3 }
+                        ];
+                    } else if (lift === 'squat') {
+                        standards = [
+                            { age: 20, ratio: 1.5 },
+                            { age: 25, ratio: 1.3 },
+                            { age: 30, ratio: 1.2 },
+                            { age: 35, ratio: 1.0 },
+                            { age: 40, ratio: 0.9 },
+                            { age: 50, ratio: 0.7 },
+                            { age: 60, ratio: 0.6 }
+                        ];
+                    } else { // deadlift
+                        standards = [
+                            { age: 20, ratio: 1.9 },
+                            { age: 25, ratio: 1.7 },
+                            { age: 30, ratio: 1.5 },
+                            { age: 35, ratio: 1.3 },
+                            { age: 40, ratio: 1.1 },
+                            { age: 50, ratio: 0.9 },
+                            { age: 60, ratio: 0.7 }
+                        ];
+                    }
+                }
+
+                // Find closest match
+                for (let i = 0; i < standards.length - 1; i++) {
+                    if (ratio >= standards[i].ratio) {
+                        return standards[i].age;
+                    }
+                    if (ratio > standards[i + 1].ratio) {
+                        // Interpolate
+                        const range = standards[i].ratio - standards[i + 1].ratio;
+                        const position = (ratio - standards[i + 1].ratio) / range;
+                        return Math.round(standards[i + 1].age - position * (standards[i + 1].age - standards[i].age));
+                    }
+                }
+                return standards[standards.length - 1].age + 5;
+            };
+
+            const benchAge = getStrengthAge(benchRatio, 'bench', gender);
+            const squatAge = getStrengthAge(squatRatio, 'squat', gender);
+            const deadliftAge = getStrengthAge(deadliftRatio, 'deadlift', gender);
+
+            const fitnessAge = Math.round((benchAge + squatAge + deadliftAge) / 3);
+
+            // Display results
+            document.getElementById('fitnessAge').textContent = fitnessAge;
+
+            const diff = age - fitnessAge;
+            let comparisonText = '';
+            let verdictText = '';
+            let verdictClass = '';
+
+            if (diff > 15) {
+                comparisonText = `You're ${age} but lift like a ${fitnessAge}-year-old elite athlete! 🏆`;
+                verdictText = '🔥 BEAST MODE: You\'re aging backwards! Your strength is exceptional for your age.';
+                verdictClass = 'excellent';
+            } else if (diff > 7) {
+                comparisonText = `You're ${age} but lift like you're ${fitnessAge}! 💪`;
+                verdictText = '⭐ EXCELLENT: You\'re significantly stronger than the average person your age!';
+                verdictClass = 'excellent';
+            } else if (diff > 0) {
+                comparisonText = `You're ${age} but your fitness age is ${fitnessAge}! 👍`;
+                verdictText = '✅ GOOD: You\'re doing better than average for your age group!';
+                verdictClass = 'good';
+            } else if (diff === 0) {
+                comparisonText = `Your fitness age matches your actual age of ${age}.`;
+                verdictText = '📊 AVERAGE: You\'re right on par with your age group.';
+                verdictClass = 'average';
+            } else {
+                comparisonText = `You're ${age}, but your fitness age is ${fitnessAge}.`;
+                verdictText = '💡 ROOM TO GROW: There\'s potential here! Keep pushing and you\'ll see improvements.';
+                verdictClass = 'below';
+            }
+
+            document.getElementById('ageComparison').textContent = comparisonText;
+            document.getElementById('verdict').textContent = verdictText;
+            document.getElementById('verdict').className = `verdict ${verdictClass}`;
+
+            // Ratings
+            const getRating = (ratio, lift, gender) => {
+                const age = getStrengthAge(ratio, lift, gender);
+                if (age <= 25) return 'Elite 🏆';
+                if (age <= 35) return 'Advanced 💪';
+                if (age <= 45) return 'Intermediate ⭐';
+                return 'Beginner 📈';
+            };
+
+            document.getElementById('benchRating').textContent = getRating(benchRatio, 'bench', gender);
+            document.getElementById('squatRating').textContent = getRating(squatRatio, 'squat', gender);
+            document.getElementById('deadliftRating').textContent = getRating(deadliftRatio, 'deadlift', gender);
+
+            const overallAge = fitnessAge;
+            let overallRating = '';
+            if (overallAge <= 25) overallRating = 'Elite Athlete 🏆';
+            else if (overallAge <= 35) overallRating = 'Advanced Lifter 💪';
+            else if (overallAge <= 45) overallRating = 'Intermediate ⭐';
+            else overallRating = 'Building Strength 📈';
+
+            document.getElementById('overallRating').textContent = overallRating;
+
+            // Show results
+            document.getElementById('calculator').style.display = 'none';
+            document.getElementById('results').classList.add('show');
+        }
+
+        function resetCalculator() {
+            document.getElementById('calculator').style.display = 'block';
+            document.getElementById('results').classList.remove('show');
+        }
+
+        function shareTwitter() {
+            const fitnessAge = document.getElementById('fitnessAge').textContent;
+            const age = document.getElementById('age').value;
+            const text = `I'm ${age} but my fitness age is ${fitnessAge}! Find out yours:`;
+            const url = window.location.href;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareFacebook() {
+            const url = window.location.href;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        }
+
+        function shareTikTok() {
+            const fitnessAge = document.getElementById('fitnessAge').textContent;
+            const age = document.getElementById('age').value;
+            const text = `I'm ${age} but my fitness age is ${fitnessAge}! 💪🔥\n\nFind out yours: ${window.location.href}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'My Fitness Age Results',
+                    text: text,
+                    url: window.location.href
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Results copied! Paste into TikTok to share.');
+                });
+            }
+        }
+
+        function copyResults() {
+            const fitnessAge = document.getElementById('fitnessAge').textContent;
+            const age = document.getElementById('age').value;
+            const text = `My fitness age: ${fitnessAge} (actual age: ${age})\n\nCalculate yours: ${window.location.href}`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
