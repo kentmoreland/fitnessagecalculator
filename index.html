@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fitness Age Calculator - What's Your Real Fitness Age?</title>
-    <meta name="description" content="Find out your true fitness age based on your strength. Compare your lifts to see if you're aging like fine wine or need to step it up!">
+    <title>Fitness Age Calculator - What Should You Be Lifting?</title>
+    <meta name="description" content="Find out your strength goals based on your age and weight. See what you should be lifting and track your progress to elite status!">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5DD2JNMJX"></script>
@@ -50,6 +50,12 @@
             color: #667eea;
             font-size: 2.2em;
             margin-bottom: 10px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 15px;
             text-align: center;
         }
 
@@ -130,6 +136,24 @@
             transform: translateY(0);
         }
 
+        .secondary-btn {
+            width: 100%;
+            padding: 14px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        .secondary-btn:hover {
+            background: #f0f4ff;
+        }
+
         .results {
             display: none;
             text-align: center;
@@ -139,6 +163,129 @@
             display: block;
         }
 
+        .user-stats {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+        }
+
+        /* Goals Table Styles */
+        .goals-table {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .goals-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 2px;
+            margin-bottom: 2px;
+        }
+
+        .goals-header {
+            background: #667eea;
+            color: white;
+            font-weight: 700;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        .goals-cell {
+            padding: 15px 8px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .goals-level {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .level-beginner {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .level-intermediate {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .level-advanced {
+            background: #e2d5f1;
+            color: #5a3d8a;
+        }
+
+        .level-elite {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            color: #856404;
+        }
+
+        .goals-value {
+            font-size: 1.1em;
+        }
+
+        /* Progress prompt */
+        .progress-prompt {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .progress-prompt p {
+            margin-bottom: 15px;
+            color: #555;
+            font-size: 1.05em;
+        }
+
+        .prompt-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .prompt-buttons button {
+            flex: 1;
+        }
+
+        /* Progress Form */
+        .progress-form {
+            display: none;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            animation: slideDown 0.3s ease;
+        }
+
+        .progress-form.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .progress-form h3 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Fitness Age Display */
         .fitness-age-display {
             font-size: 5em;
             font-weight: 900;
@@ -207,6 +354,35 @@
             border-bottom: none;
         }
 
+        /* Next milestone */
+        .next-milestone {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .next-milestone h3 {
+            margin-bottom: 10px;
+        }
+
+        .next-milestone .milestone-lift {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+
+        .motivation-text {
+            background: #e7f3ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 1em;
+            text-align: left;
+        }
+
         .share-buttons {
             display: flex;
             gap: 10px;
@@ -273,25 +449,6 @@
             font-weight: 600;
             cursor: pointer;
             margin-top: 10px;
-        }
-
-        .ad-placeholder {
-            background: #f8f9fa;
-            border: 2px dashed #dee2e6;
-            border-radius: 10px;
-            padding: 60px 20px;
-            text-align: center;
-            color: #999;
-            margin: 20px 0;
-        }
-
-        .info-box {
-            background: #e7f3ff;
-            border-left: 4px solid #667eea;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            font-size: 0.95em;
         }
 
         .affiliate-section {
@@ -375,6 +532,23 @@
             .fitness-age-display {
                 font-size: 4em;
             }
+
+            .goals-row {
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+            }
+
+            .goals-header, .goals-cell {
+                padding: 10px 4px;
+                font-size: 0.8em;
+            }
+
+            .goals-value {
+                font-size: 0.95em;
+            }
+
+            .prompt-buttons {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -382,8 +556,9 @@
     <div class="container">
         <div class="card">
             <h1>💪 Fitness Age Calculator</h1>
-            <p class="subtitle">Discover your TRUE fitness age based on strength</p>
+            <p class="subtitle">Discover your strength goals & track your progress</p>
 
+            <!-- Step 1: Basic Info Form -->
             <div id="calculator">
                 <div class="unit-toggle">
                     <button class="unit-btn active" onclick="setUnits('lbs')">Pounds (lbs)</button>
@@ -399,7 +574,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Your Actual Age</label>
+                    <label>Your Age</label>
                     <input type="number" id="age" placeholder="e.g., 35" min="15" max="80">
                 </div>
 
@@ -408,29 +583,129 @@
                     <input type="number" id="bodyweight" placeholder="e.g., 180" step="0.1">
                 </div>
 
-                <div class="form-group">
-                    <label>Bench Press 1RM <span id="bench-unit">(lbs)</span></label>
-                    <input type="number" id="bench" placeholder="e.g., 225" step="0.1">
-                </div>
-
-                <div class="form-group">
-                    <label>Squat 1RM <span id="squat-unit">(lbs)</span></label>
-                    <input type="number" id="squat" placeholder="e.g., 315" step="0.1">
-                </div>
-
-                <div class="form-group">
-                    <label>Deadlift 1RM <span id="deadlift-unit">(lbs)</span></label>
-                    <input type="number" id="deadlift" placeholder="e.g., 405" step="0.1">
-                </div>
-
-                <div class="info-box">
-                    <strong>Don't know your 1RM?</strong> Use an online calculator or estimate based on your working sets.
-                </div>
-
-                <button class="calculate-btn" onclick="calculateFitnessAge()">Calculate My Fitness Age 🔥</button>
+                <button class="calculate-btn" onclick="calculateGoals()">Calculate My Goals 🎯</button>
             </div>
 
-            <div id="results" class="results">
+            <!-- Step 2: Goals Results -->
+            <div id="goalsResults" class="results">
+                <h2>🎯 Your Strength Goals</h2>
+                <p class="user-stats" id="userStats"></p>
+
+                <div class="goals-table">
+                    <div class="goals-row">
+                        <div class="goals-header">Level</div>
+                        <div class="goals-header">Bench</div>
+                        <div class="goals-header">Squat</div>
+                        <div class="goals-header">Deadlift</div>
+                    </div>
+                    <div class="goals-row">
+                        <div class="goals-cell goals-level level-beginner">Beginner</div>
+                        <div class="goals-cell goals-value level-beginner" id="goalBenchBeginner">--</div>
+                        <div class="goals-cell goals-value level-beginner" id="goalSquatBeginner">--</div>
+                        <div class="goals-cell goals-value level-beginner" id="goalDeadliftBeginner">--</div>
+                    </div>
+                    <div class="goals-row">
+                        <div class="goals-cell goals-level level-intermediate">Intermediate</div>
+                        <div class="goals-cell goals-value level-intermediate" id="goalBenchIntermediate">--</div>
+                        <div class="goals-cell goals-value level-intermediate" id="goalSquatIntermediate">--</div>
+                        <div class="goals-cell goals-value level-intermediate" id="goalDeadliftIntermediate">--</div>
+                    </div>
+                    <div class="goals-row">
+                        <div class="goals-cell goals-level level-advanced">Advanced</div>
+                        <div class="goals-cell goals-value level-advanced" id="goalBenchAdvanced">--</div>
+                        <div class="goals-cell goals-value level-advanced" id="goalSquatAdvanced">--</div>
+                        <div class="goals-cell goals-value level-advanced" id="goalDeadliftAdvanced">--</div>
+                    </div>
+                    <div class="goals-row">
+                        <div class="goals-cell goals-level level-elite">Elite</div>
+                        <div class="goals-cell goals-value level-elite" id="goalBenchElite">--</div>
+                        <div class="goals-cell goals-value level-elite" id="goalSquatElite">--</div>
+                        <div class="goals-cell goals-value level-elite" id="goalDeadliftElite">--</div>
+                    </div>
+                </div>
+
+                <div class="motivation-text">
+                    <strong>Start with Beginner and work your way up! 💪</strong> These goals are personalized to your bodyweight. Consistent training will get you there!
+                </div>
+
+                <!-- Progress Prompt -->
+                <div class="progress-prompt" id="progressPrompt">
+                    <p>Already lifting? Want to see where you rank?</p>
+                    <div class="prompt-buttons">
+                        <button class="calculate-btn" onclick="showProgressForm()">Yes, Show My Progress</button>
+                        <button class="secondary-btn" onclick="skipProgress()">No, Thanks</button>
+                    </div>
+                </div>
+
+                <!-- Progress Form (hidden initially) -->
+                <div class="progress-form" id="progressForm">
+                    <h3>Enter Your Current Lifts</h3>
+
+                    <div class="form-group">
+                        <label>Bench Press 1RM <span id="bench-unit">(lbs)</span></label>
+                        <input type="number" id="bench" placeholder="e.g., 225" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Squat 1RM <span id="squat-unit">(lbs)</span></label>
+                        <input type="number" id="squat" placeholder="e.g., 315" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deadlift 1RM <span id="deadlift-unit">(lbs)</span></label>
+                        <input type="number" id="deadlift" placeholder="e.g., 405" step="0.1">
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateProgress()">Calculate My Progress 🔥</button>
+                </div>
+
+                <!-- Goals-only share buttons (shown when skipping progress) -->
+                <div id="goalsShareSection" style="display: none;">
+                    <div class="share-buttons">
+                        <button class="share-btn share-twitter" onclick="shareGoalsTwitter()">Share on X</button>
+                        <button class="share-btn share-facebook" onclick="shareGoalsFacebook()">Share on Facebook</button>
+                        <button class="share-btn share-tiktok" onclick="shareGoalsTikTok()"><span>TikTok</span></button>
+                    </div>
+                    <button class="share-btn share-copy" onclick="copyGoals()">📋 Copy Goals</button>
+                    <button class="reset-btn" onclick="resetCalculator()">Start Over</button>
+
+                    <div class="affiliate-section">
+                        <h3>⚡ Supplements to Reach Your Goals</h3>
+
+                        <a href="https://amzn.to/4rx592B" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'creatine'});">
+                            <span class="affiliate-icon">💊</span>
+                            <div class="affiliate-info">
+                                <div class="affiliate-title">Creatine Monohydrate</div>
+                                <div class="affiliate-desc">The #1 proven supplement for strength & power</div>
+                            </div>
+                            <span class="affiliate-cta">Shop Now</span>
+                        </a>
+
+                        <a href="https://amzn.to/4adnMmJ" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'protein'});">
+                            <span class="affiliate-icon">🥤</span>
+                            <div class="affiliate-info">
+                                <div class="affiliate-title">Whey Protein</div>
+                                <div class="affiliate-desc">Build muscle & recover faster between sessions</div>
+                            </div>
+                            <span class="affiliate-cta">Shop Now</span>
+                        </a>
+
+                        <a href="https://amzn.to/4qrXLou" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'preworkout'});">
+                            <span class="affiliate-icon">⚡</span>
+                            <div class="affiliate-info">
+                                <div class="affiliate-title">Pre-Workout</div>
+                                <div class="affiliate-desc">Energy & focus to crush your PRs</div>
+                            </div>
+                            <span class="affiliate-cta">Shop Now</span>
+                        </a>
+
+                        <div class="affiliate-disclosure">Affiliate links - we may earn a commission</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Progress Results (Full Analysis) -->
+            <div id="progressResults" class="results">
                 <h2>Your Fitness Age</h2>
                 <div class="fitness-age-display" id="fitnessAge">--</div>
                 <div class="age-comparison" id="ageComparison"></div>
@@ -456,18 +731,22 @@
                     </div>
                 </div>
 
-                <div class="share-buttons">
-                    <button class="share-btn share-twitter" onclick="shareTwitter()">Share on X</button>
-                    <button class="share-btn share-facebook" onclick="shareFacebook()">Share on Facebook</button>
-                    <button class="share-btn share-tiktok" onclick="shareTikTok()"><span>TikTok</span></button>
+                <div class="next-milestone" id="nextMilestone">
+                    <h3>🎯 Next Milestone</h3>
+                    <div id="milestoneContent"></div>
                 </div>
-                <button class="share-btn share-copy" onclick="copyResults()">📋 Copy Results</button>
+
+                <div class="share-buttons">
+                    <button class="share-btn share-twitter" onclick="shareProgressTwitter()">Share on X</button>
+                    <button class="share-btn share-facebook" onclick="shareProgressFacebook()">Share on Facebook</button>
+                    <button class="share-btn share-tiktok" onclick="shareProgressTikTok()"><span>TikTok</span></button>
+                </div>
+                <button class="share-btn share-copy" onclick="copyProgress()">📋 Copy Results</button>
                 <button class="reset-btn" onclick="resetCalculator()">Calculate Again</button>
 
                 <div class="affiliate-section">
                     <h3>⚡ Supplements to Boost Your Lifts</h3>
 
-                    <!-- AFFILIATE LINK 1: Replace # with your Amazon/affiliate link -->
                     <a href="https://amzn.to/4rx592B" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'creatine'});">
                         <span class="affiliate-icon">💊</span>
                         <div class="affiliate-info">
@@ -477,7 +756,6 @@
                         <span class="affiliate-cta">Shop Now</span>
                     </a>
 
-                    <!-- AFFILIATE LINK 2: Replace # with your Amazon/affiliate link -->
                     <a href="https://amzn.to/4adnMmJ" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'protein'});">
                         <span class="affiliate-icon">🥤</span>
                         <div class="affiliate-info">
@@ -487,7 +765,6 @@
                         <span class="affiliate-cta">Shop Now</span>
                     </a>
 
-                    <!-- AFFILIATE LINK 3: Replace # with your Amazon/affiliate link -->
                     <a href="https://amzn.to/4qrXLou" class="affiliate-product" target="_blank" rel="noopener" onclick="gtag('event', 'affiliate_click', {'event_category': 'monetization', 'event_label': 'preworkout'});">
                         <span class="affiliate-icon">⚡</span>
                         <div class="affiliate-info">
@@ -502,7 +779,6 @@
             </div>
         </div>
 
-
         <!-- Coming Soon Section -->
         <div class="card" style="text-align: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
             <h3>🎯 More Fitness Calculators Coming Soon!</h3>
@@ -512,6 +788,13 @@
 
     <script>
         let currentUnits = 'lbs';
+        let userState = {
+            gender: '',
+            age: 0,
+            bodyweight: 0,
+            goals: null,
+            hasEnteredLifts: false
+        };
 
         function setUnits(units) {
             currentUnits = units;
@@ -524,40 +807,180 @@
             });
         }
 
-        function calculateFitnessAge() {
+        function roundToNearest5(num) {
+            return Math.round(num / 5) * 5;
+        }
+
+        function calculateStrengthGoals(bodyweight, gender) {
+            let multipliers;
+
+            if (gender === 'male') {
+                multipliers = {
+                    beginner: { bench: 0.75, squat: 1.0, deadlift: 1.25 },
+                    intermediate: { bench: 1.0, squat: 1.5, deadlift: 1.75 },
+                    advanced: { bench: 1.35, squat: 2.0, deadlift: 2.25 },
+                    elite: { bench: 1.75, squat: 2.5, deadlift: 3.0 }
+                };
+            } else {
+                multipliers = {
+                    beginner: { bench: 0.4, squat: 0.65, deadlift: 0.85 },
+                    intermediate: { bench: 0.65, squat: 1.0, deadlift: 1.35 },
+                    advanced: { bench: 0.85, squat: 1.4, deadlift: 1.75 },
+                    elite: { bench: 1.1, squat: 1.9, deadlift: 2.35 }
+                };
+            }
+
+            const goals = {};
+            for (const level in multipliers) {
+                goals[level] = {
+                    bench: roundToNearest5(bodyweight * multipliers[level].bench),
+                    squat: roundToNearest5(bodyweight * multipliers[level].squat),
+                    deadlift: roundToNearest5(bodyweight * multipliers[level].deadlift)
+                };
+            }
+            return goals;
+        }
+
+        function calculateGoals() {
             const gender = document.getElementById('gender').value;
             const age = parseInt(document.getElementById('age').value);
+            let bodyweight = parseFloat(document.getElementById('bodyweight').value);
 
-            // Track calculation event in Google Analytics
-            gtag('event', 'calculate_fitness_age', {
+            if (!age || !bodyweight) {
+                alert('Please fill in your age and bodyweight!');
+                return;
+            }
+
+            // Track event
+            gtag('event', 'calculate_goals', {
                 'event_category': 'engagement',
                 'event_label': gender
             });
-            let bodyweight = parseFloat(document.getElementById('bodyweight').value);
+
+            // Convert to lbs if needed for calculations
+            let displayBodyweight = bodyweight;
+            if (currentUnits === 'kg') {
+                bodyweight *= 2.20462;
+            }
+
+            // Store user state
+            userState.gender = gender;
+            userState.age = age;
+            userState.bodyweight = bodyweight;
+            userState.goals = calculateStrengthGoals(bodyweight, gender);
+
+            // Display user stats
+            const genderDisplay = gender === 'male' ? 'M' : 'F';
+            const unitLabel = currentUnits === 'lbs' ? 'lbs' : 'kg';
+            document.getElementById('userStats').textContent = `Based on: ${age}${genderDisplay}, ${displayBodyweight} ${unitLabel}`;
+
+            // Populate goals table
+            const goals = userState.goals;
+            const displayMultiplier = currentUnits === 'kg' ? 0.453592 : 1;
+
+            for (const level of ['beginner', 'intermediate', 'advanced', 'elite']) {
+                const levelCap = level.charAt(0).toUpperCase() + level.slice(1);
+                document.getElementById(`goalBench${levelCap}`).textContent =
+                    roundToNearest5(goals[level].bench * displayMultiplier);
+                document.getElementById(`goalSquat${levelCap}`).textContent =
+                    roundToNearest5(goals[level].squat * displayMultiplier);
+                document.getElementById(`goalDeadlift${levelCap}`).textContent =
+                    roundToNearest5(goals[level].deadlift * displayMultiplier);
+            }
+
+            // Show goals results
+            document.getElementById('calculator').style.display = 'none';
+            document.getElementById('goalsResults').classList.add('show');
+        }
+
+        function showProgressForm() {
+            gtag('event', 'show_progress_form', {
+                'event_category': 'engagement'
+            });
+            document.getElementById('progressPrompt').style.display = 'none';
+            document.getElementById('progressForm').classList.add('show');
+        }
+
+        function skipProgress() {
+            gtag('event', 'skip_progress', {
+                'event_category': 'engagement'
+            });
+            document.getElementById('progressPrompt').style.display = 'none';
+            document.getElementById('goalsShareSection').style.display = 'block';
+        }
+
+        function getLevelFromLift(current, goals) {
+            if (current >= goals.elite) return 'Elite';
+            if (current >= goals.advanced) return 'Advanced';
+            if (current >= goals.intermediate) return 'Intermediate';
+            if (current >= goals.beginner) return 'Beginner';
+            return 'Untrained';
+        }
+
+        function getNextMilestone(current, goals) {
+            if (current < goals.beginner) return { level: 'Beginner', target: goals.beginner };
+            if (current < goals.intermediate) return { level: 'Intermediate', target: goals.intermediate };
+            if (current < goals.advanced) return { level: 'Advanced', target: goals.advanced };
+            if (current < goals.elite) return { level: 'Elite', target: goals.elite };
+            return null;
+        }
+
+        function calculateProgress() {
             let bench = parseFloat(document.getElementById('bench').value);
             let squat = parseFloat(document.getElementById('squat').value);
             let deadlift = parseFloat(document.getElementById('deadlift').value);
 
-            if (!age || !bodyweight || !bench || !squat || !deadlift) {
-                alert('Please fill in all fields!');
+            if (!bench || !squat || !deadlift) {
+                alert('Please fill in all your lifts!');
                 return;
             }
 
+            // Track event
+            gtag('event', 'calculate_fitness_age', {
+                'event_category': 'engagement',
+                'event_label': userState.gender
+            });
+
+            userState.hasEnteredLifts = true;
+
             // Convert to lbs if needed
             if (currentUnits === 'kg') {
-                bodyweight *= 2.20462;
                 bench *= 2.20462;
                 squat *= 2.20462;
                 deadlift *= 2.20462;
             }
+
+            const bodyweight = userState.bodyweight;
+            const gender = userState.gender;
+            const age = userState.age;
+            const goals = userState.goals;
 
             // Calculate ratios
             const benchRatio = bench / bodyweight;
             const squatRatio = squat / bodyweight;
             const deadliftRatio = deadlift / bodyweight;
 
-            // Strength standards (simplified, based on bodyweight ratios)
-            // These are rough averages - higher ratios = younger fitness age
+            // Get levels for each lift
+            const benchLevel = getLevelFromLift(bench, {
+                beginner: goals.beginner.bench,
+                intermediate: goals.intermediate.bench,
+                advanced: goals.advanced.bench,
+                elite: goals.elite.bench
+            });
+            const squatLevel = getLevelFromLift(squat, {
+                beginner: goals.beginner.squat,
+                intermediate: goals.intermediate.squat,
+                advanced: goals.advanced.squat,
+                elite: goals.elite.squat
+            });
+            const deadliftLevel = getLevelFromLift(deadlift, {
+                beginner: goals.beginner.deadlift,
+                intermediate: goals.intermediate.deadlift,
+                advanced: goals.advanced.deadlift,
+                elite: goals.elite.deadlift
+            });
+
+            // Calculate fitness age using existing logic
             const getStrengthAge = (ratio, lift, gender) => {
                 let standards;
 
@@ -582,7 +1005,7 @@
                             { age: 50, ratio: 1.0 },
                             { age: 60, ratio: 0.8 }
                         ];
-                    } else { // deadlift
+                    } else {
                         standards = [
                             { age: 20, ratio: 2.5 },
                             { age: 25, ratio: 2.2 },
@@ -593,7 +1016,7 @@
                             { age: 60, ratio: 1.0 }
                         ];
                     }
-                } else { // female
+                } else {
                     if (lift === 'bench') {
                         standards = [
                             { age: 20, ratio: 0.9 },
@@ -614,7 +1037,7 @@
                             { age: 50, ratio: 0.7 },
                             { age: 60, ratio: 0.6 }
                         ];
-                    } else { // deadlift
+                    } else {
                         standards = [
                             { age: 20, ratio: 1.9 },
                             { age: 25, ratio: 1.7 },
@@ -627,13 +1050,11 @@
                     }
                 }
 
-                // Find closest match
                 for (let i = 0; i < standards.length - 1; i++) {
                     if (ratio >= standards[i].ratio) {
                         return standards[i].age;
                     }
                     if (ratio > standards[i + 1].ratio) {
-                        // Interpolate
                         const range = standards[i].ratio - standards[i + 1].ratio;
                         const position = (ratio - standards[i + 1].ratio) / range;
                         return Math.round(standards[i + 1].age - position * (standards[i + 1].age - standards[i].age));
@@ -648,7 +1069,7 @@
 
             const fitnessAge = Math.round((benchAge + squatAge + deadliftAge) / 3);
 
-            // Display results
+            // Display fitness age
             document.getElementById('fitnessAge').textContent = fitnessAge;
 
             const diff = age - fitnessAge;
@@ -682,65 +1103,157 @@
             document.getElementById('verdict').textContent = verdictText;
             document.getElementById('verdict').className = `verdict ${verdictClass}`;
 
-            // Ratings
-            const getRating = (ratio, lift, gender) => {
-                const age = getStrengthAge(ratio, lift, gender);
-                if (age <= 25) return 'Elite 🏆';
-                if (age <= 35) return 'Advanced 💪';
-                if (age <= 45) return 'Intermediate ⭐';
-                return 'Beginner 📈';
+            // Display ratings with levels
+            const getLevelEmoji = (level) => {
+                switch(level) {
+                    case 'Elite': return '🏆';
+                    case 'Advanced': return '💪';
+                    case 'Intermediate': return '⭐';
+                    case 'Beginner': return '📈';
+                    default: return '🌱';
+                }
             };
 
-            document.getElementById('benchRating').textContent = getRating(benchRatio, 'bench', gender);
-            document.getElementById('squatRating').textContent = getRating(squatRatio, 'squat', gender);
-            document.getElementById('deadliftRating').textContent = getRating(deadliftRatio, 'deadlift', gender);
+            document.getElementById('benchRating').textContent = `${benchLevel} ${getLevelEmoji(benchLevel)}`;
+            document.getElementById('squatRating').textContent = `${squatLevel} ${getLevelEmoji(squatLevel)}`;
+            document.getElementById('deadliftRating').textContent = `${deadliftLevel} ${getLevelEmoji(deadliftLevel)}`;
 
-            const overallAge = fitnessAge;
-            let overallRating = '';
-            if (overallAge <= 25) overallRating = 'Elite Athlete 🏆';
-            else if (overallAge <= 35) overallRating = 'Advanced Lifter 💪';
-            else if (overallAge <= 45) overallRating = 'Intermediate ⭐';
-            else overallRating = 'Building Strength 📈';
+            // Calculate overall level
+            const levels = ['Untrained', 'Beginner', 'Intermediate', 'Advanced', 'Elite'];
+            const avgLevelIndex = Math.round(
+                (levels.indexOf(benchLevel) + levels.indexOf(squatLevel) + levels.indexOf(deadliftLevel)) / 3
+            );
+            const overallLevel = levels[avgLevelIndex];
+            document.getElementById('overallRating').textContent = `${overallLevel} ${getLevelEmoji(overallLevel)}`;
 
-            document.getElementById('overallRating').textContent = overallRating;
+            // Calculate next milestone
+            const displayMultiplier = currentUnits === 'kg' ? 0.453592 : 1;
+            const unitLabel = currentUnits === 'lbs' ? 'lbs' : 'kg';
 
-            // Show results
-            document.getElementById('calculator').style.display = 'none';
-            document.getElementById('results').classList.add('show');
+            const benchNext = getNextMilestone(bench, {
+                beginner: goals.beginner.bench,
+                intermediate: goals.intermediate.bench,
+                advanced: goals.advanced.bench,
+                elite: goals.elite.bench
+            });
+            const squatNext = getNextMilestone(squat, {
+                beginner: goals.beginner.squat,
+                intermediate: goals.intermediate.squat,
+                advanced: goals.advanced.squat,
+                elite: goals.elite.squat
+            });
+            const deadliftNext = getNextMilestone(deadlift, {
+                beginner: goals.beginner.deadlift,
+                intermediate: goals.intermediate.deadlift,
+                advanced: goals.advanced.deadlift,
+                elite: goals.elite.deadlift
+            });
+
+            let milestoneHtml = '';
+            if (benchNext || squatNext || deadliftNext) {
+                if (benchNext) {
+                    const needed = roundToNearest5((benchNext.target - bench) * displayMultiplier);
+                    milestoneHtml += `<div class="milestone-lift">Bench: +${needed} ${unitLabel} to ${benchNext.level}</div>`;
+                }
+                if (squatNext) {
+                    const needed = roundToNearest5((squatNext.target - squat) * displayMultiplier);
+                    milestoneHtml += `<div class="milestone-lift">Squat: +${needed} ${unitLabel} to ${squatNext.level}</div>`;
+                }
+                if (deadliftNext) {
+                    const needed = roundToNearest5((deadliftNext.target - deadlift) * displayMultiplier);
+                    milestoneHtml += `<div class="milestone-lift">Deadlift: +${needed} ${unitLabel} to ${deadliftNext.level}</div>`;
+                }
+            } else {
+                milestoneHtml = '<div class="milestone-lift">You\'ve reached Elite in all lifts! 🏆</div>';
+            }
+            document.getElementById('milestoneContent').innerHTML = milestoneHtml;
+
+            // Hide goals results, show progress results
+            document.getElementById('goalsResults').classList.remove('show');
+            document.getElementById('progressResults').classList.add('show');
         }
 
         function resetCalculator() {
             document.getElementById('calculator').style.display = 'block';
-            document.getElementById('results').classList.remove('show');
+            document.getElementById('goalsResults').classList.remove('show');
+            document.getElementById('progressResults').classList.remove('show');
+            document.getElementById('progressPrompt').style.display = 'block';
+            document.getElementById('progressForm').classList.remove('show');
+            document.getElementById('goalsShareSection').style.display = 'none';
+
+            // Clear lift inputs
+            document.getElementById('bench').value = '';
+            document.getElementById('squat').value = '';
+            document.getElementById('deadlift').value = '';
+
+            userState.hasEnteredLifts = false;
         }
 
-        function shareTwitter() {
-            gtag('event', 'share', {'event_category': 'social', 'event_label': 'x'});
-            const fitnessAge = document.getElementById('fitnessAge').textContent;
-            const age = document.getElementById('age').value;
-            const text = `I'm ${age} but my fitness age is ${fitnessAge}! Find out yours:`;
-            const url = window.location.href;
-            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank');
+        // Share functions for goals only
+        function shareGoalsTwitter() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'x_goals'});
+            const goals = userState.goals;
+            const displayMultiplier = currentUnits === 'kg' ? 0.453592 : 1;
+            const text = `My strength goals: Elite = Bench ${roundToNearest5(goals.elite.bench * displayMultiplier)}, Squat ${roundToNearest5(goals.elite.squat * displayMultiplier)}, Deadlift ${roundToNearest5(goals.elite.deadlift * displayMultiplier)}. What are yours?`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
         }
 
-        function shareFacebook() {
-            gtag('event', 'share', {'event_category': 'social', 'event_label': 'facebook'});
-            const url = window.location.href;
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        function shareGoalsFacebook() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'facebook_goals'});
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
         }
 
-        function shareTikTok() {
-            gtag('event', 'share', {'event_category': 'social', 'event_label': 'tiktok'});
-            const fitnessAge = document.getElementById('fitnessAge').textContent;
-            const age = document.getElementById('age').value;
-            const text = `I'm ${age} but my fitness age is ${fitnessAge}! 💪🔥\n\nFind out yours: ${window.location.href}`;
+        function shareGoalsTikTok() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'tiktok_goals'});
+            const goals = userState.goals;
+            const displayMultiplier = currentUnits === 'kg' ? 0.453592 : 1;
+            const text = `My strength goals: Elite = Bench ${roundToNearest5(goals.elite.bench * displayMultiplier)}, Squat ${roundToNearest5(goals.elite.squat * displayMultiplier)}, Deadlift ${roundToNearest5(goals.elite.deadlift * displayMultiplier)} 💪🔥\n\nFind yours: ${window.location.href}`;
 
             if (navigator.share) {
-                navigator.share({
-                    title: 'My Fitness Age Results',
-                    text: text,
-                    url: window.location.href
-                }).catch(() => {});
+                navigator.share({ title: 'My Strength Goals', text: text, url: window.location.href }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Goals copied! Paste into TikTok to share.');
+                });
+            }
+        }
+
+        function copyGoals() {
+            const goals = userState.goals;
+            const displayMultiplier = currentUnits === 'kg' ? 0.453592 : 1;
+            const unitLabel = currentUnits === 'lbs' ? 'lbs' : 'kg';
+            const text = `My Strength Goals (${userState.age}${userState.gender === 'male' ? 'M' : 'F'}):\n\nElite Level:\n- Bench: ${roundToNearest5(goals.elite.bench * displayMultiplier)} ${unitLabel}\n- Squat: ${roundToNearest5(goals.elite.squat * displayMultiplier)} ${unitLabel}\n- Deadlift: ${roundToNearest5(goals.elite.deadlift * displayMultiplier)} ${unitLabel}\n\nCalculate yours: ${window.location.href}`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = '✅ Copied!';
+                setTimeout(() => { btn.textContent = originalText; }, 2000);
+            });
+        }
+
+        // Share functions for progress/fitness age
+        function shareProgressTwitter() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'x'});
+            const fitnessAge = document.getElementById('fitnessAge').textContent;
+            const overallRating = document.getElementById('overallRating').textContent.split(' ')[0];
+            const text = `I'm ${overallRating} overall with a fitness age of ${fitnessAge}! Calculate yours:`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function shareProgressFacebook() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'facebook'});
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`, '_blank');
+        }
+
+        function shareProgressTikTok() {
+            gtag('event', 'share', {'event_category': 'social', 'event_label': 'tiktok'});
+            const fitnessAge = document.getElementById('fitnessAge').textContent;
+            const overallRating = document.getElementById('overallRating').textContent.split(' ')[0];
+            const text = `I'm ${overallRating} overall with a fitness age of ${fitnessAge}! 💪🔥\n\nFind out yours: ${window.location.href}`;
+
+            if (navigator.share) {
+                navigator.share({ title: 'My Fitness Age Results', text: text, url: window.location.href }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(text).then(() => {
                     alert('Results copied! Paste into TikTok to share.');
@@ -748,18 +1261,17 @@
             }
         }
 
-        function copyResults() {
+        function copyProgress() {
             const fitnessAge = document.getElementById('fitnessAge').textContent;
-            const age = document.getElementById('age').value;
-            const text = `My fitness age: ${fitnessAge} (actual age: ${age})\n\nCalculate yours: ${window.location.href}`;
+            const age = userState.age;
+            const overallRating = document.getElementById('overallRating').textContent;
+            const text = `My fitness age: ${fitnessAge} (actual age: ${age})\nOverall: ${overallRating}\n\nCalculate yours: ${window.location.href}`;
 
             navigator.clipboard.writeText(text).then(() => {
                 const btn = event.target;
                 const originalText = btn.textContent;
                 btn.textContent = '✅ Copied!';
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                }, 2000);
+                setTimeout(() => { btn.textContent = originalText; }, 2000);
             });
         }
     </script>
