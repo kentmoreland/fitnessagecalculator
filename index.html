@@ -908,12 +908,7 @@
             userState.goals = calculateStrengthGoals(bodyweight, gender);
             userState.hasEnteredLifts = true;
 
-            // Copy values to the progress form inputs for consistency
-            document.getElementById('bench').value = document.getElementById('bench-main').value;
-            document.getElementById('squat').value = document.getElementById('squat-main').value;
-            document.getElementById('deadlift').value = document.getElementById('deadlift-main').value;
-
-            // Calculate and show results using the existing logic
+            // Calculate and show results
             calculateProgressWithValues(bench, squat, deadlift);
         }
 
@@ -1017,34 +1012,6 @@
             if (current < goals.advanced) return { level: 'Advanced', target: goals.advanced };
             if (current < goals.elite) return { level: 'Elite', target: goals.elite };
             return null;
-        }
-
-        function calculateProgress() {
-            let bench = parseFloat(document.getElementById('bench').value);
-            let squat = parseFloat(document.getElementById('squat').value);
-            let deadlift = parseFloat(document.getElementById('deadlift').value);
-
-            if (!bench || !squat || !deadlift) {
-                alert('Please fill in all your lifts!');
-                return;
-            }
-
-            // Track event
-            gtag('event', 'calculate_fitness_age', {
-                'event_category': 'engagement',
-                'event_label': userState.gender
-            });
-
-            userState.hasEnteredLifts = true;
-
-            // Convert to lbs if needed
-            if (currentUnits === 'kg') {
-                bench *= 2.20462;
-                squat *= 2.20462;
-                deadlift *= 2.20462;
-            }
-
-            calculateProgressWithValues(bench, squat, deadlift);
         }
 
         function calculateProgressWithValues(bench, squat, deadlift) {
