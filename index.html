@@ -550,6 +550,66 @@
                 flex-direction: column;
             }
         }
+
+        /* Checkbox styling */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: #444;
+        }
+
+        .lifts-section {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .lifts-section.show {
+            display: block;
+        }
+
+        .info-text {
+            text-align: center;
+            color: #666;
+            margin: 20px 0 10px 0;
+            font-size: 0.95em;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .divider span {
+            padding: 0 15px;
+            color: #999;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -583,6 +643,33 @@
                     <input type="number" id="bodyweight" placeholder="e.g., 180" step="0.1">
                 </div>
 
+                <div class="checkbox-group" onclick="toggleLiftsSection()">
+                    <input type="checkbox" id="knowsLifts" onclick="event.stopPropagation(); toggleLiftsSection()">
+                    <label for="knowsLifts">I know my bench, squat, and deadlift 1 rep max</label>
+                </div>
+
+                <div id="liftsSection" class="lifts-section">
+                    <div class="form-group">
+                        <label>Bench Press 1RM <span id="bench-unit-main">(lbs)</span></label>
+                        <input type="number" id="bench-main" placeholder="e.g., 225" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Squat 1RM <span id="squat-unit-main">(lbs)</span></label>
+                        <input type="number" id="squat-main" placeholder="e.g., 315" step="0.1">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Deadlift 1RM <span id="deadlift-unit-main">(lbs)</span></label>
+                        <input type="number" id="deadlift-main" placeholder="e.g., 405" step="0.1">
+                    </div>
+
+                    <button class="calculate-btn" onclick="calculateFitnessAgeDirect()">Calculate My Fitness Age 🔥</button>
+                </div>
+
+                <div class="divider"><span>OR</span></div>
+
+                <p class="info-text">Don't know your maxes? Get personalized strength goals based on your stats!</p>
                 <button class="calculate-btn" onclick="calculateGoals()">Calculate My Goals 🎯</button>
             </div>
 
@@ -802,9 +889,68 @@
             event.target.classList.add('active');
 
             const unitText = units === 'lbs' ? '(lbs)' : '(kg)';
-            document.querySelectorAll('#bw-unit, #bench-unit, #squat-unit, #deadlift-unit').forEach(el => {
+            document.querySelectorAll('#bw-unit, #bench-unit, #squat-unit, #deadlift-unit, #bench-unit-main, #squat-unit-main, #deadlift-unit-main').forEach(el => {
                 el.textContent = unitText;
             });
+        }
+
+        function toggleLiftsSection() {
+            const checkbox = document.getElementById('knowsLifts');
+            const liftsSection = document.getElementById('liftsSection');
+
+            // Toggle checkbox if clicked on the container
+            if (event.target.tagName !== 'INPUT') {
+                checkbox.checked = !checkbox.checked;
+            }
+
+            if (checkbox.checked) {
+                liftsSection.classList.add('show');
+            } else {
+                liftsSection.classList.remove('show');
+            }
+        }
+
+        function calculateFitnessAgeDirect() {
+            const gender = document.getElementById('gender').value;
+            const age = parseInt(document.getElementById('age').value);
+            let bodyweight = parseFloat(document.getElementById('bodyweight').value);
+            let bench = parseFloat(document.getElementById('bench-main').value);
+            let squat = parseFloat(document.getElementById('squat-main').value);
+            let deadlift = parseFloat(document.getElementById('deadlift-main').value);
+
+            if (!age || !bodyweight || !bench || !squat || !deadlift) {
+                alert('Please fill in all fields!');
+                return;
+            }
+
+            // Track event
+            gtag('event', 'calculate_fitness_age_direct', {
+                'event_category': 'engagement',
+                'event_label': gender
+            });
+
+            // Convert to lbs if needed
+            if (currentUnits === 'kg') {
+                bodyweight *= 2.20462;
+                bench *= 2.20462;
+                squat *= 2.20462;
+                deadlift *= 2.20462;
+            }
+
+            // Store user state
+            userState.gender = gender;
+            userState.age = age;
+            userState.bodyweight = bodyweight;
+            userState.goals = calculateStrengthGoals(bodyweight, gender);
+            userState.hasEnteredLifts = true;
+
+            // Copy values to the progress form inputs for consistency
+            document.getElementById('bench').value = document.getElementById('bench-main').value;
+            document.getElementById('squat').value = document.getElementById('squat-main').value;
+            document.getElementById('deadlift').value = document.getElementById('deadlift-main').value;
+
+            // Calculate and show results using the existing logic
+            calculateProgressWithValues(bench, squat, deadlift);
         }
 
         function roundToNearest5(num) {
@@ -950,6 +1096,10 @@
                 deadlift *= 2.20462;
             }
 
+            calculateProgressWithValues(bench, squat, deadlift);
+        }
+
+        function calculateProgressWithValues(bench, squat, deadlift) {
             const bodyweight = userState.bodyweight;
             const gender = userState.gender;
             const age = userState.age;
@@ -1168,7 +1318,8 @@
             }
             document.getElementById('milestoneContent').innerHTML = milestoneHtml;
 
-            // Hide goals results, show progress results
+            // Hide calculator and goals results, show progress results
+            document.getElementById('calculator').style.display = 'none';
             document.getElementById('goalsResults').classList.remove('show');
             document.getElementById('progressResults').classList.add('show');
         }
@@ -1181,10 +1332,17 @@
             document.getElementById('progressForm').classList.remove('show');
             document.getElementById('goalsShareSection').style.display = 'none';
 
-            // Clear lift inputs
+            // Reset checkbox and lifts section
+            document.getElementById('knowsLifts').checked = false;
+            document.getElementById('liftsSection').classList.remove('show');
+
+            // Clear lift inputs (both forms)
             document.getElementById('bench').value = '';
             document.getElementById('squat').value = '';
             document.getElementById('deadlift').value = '';
+            document.getElementById('bench-main').value = '';
+            document.getElementById('squat-main').value = '';
+            document.getElementById('deadlift-main').value = '';
 
             userState.hasEnteredLifts = false;
         }
