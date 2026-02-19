@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fitness Age Calculator - What Should You Be Lifting?</title>
     <meta name="description" content="Find out your strength goals based on your age and weight. See what you should be lifting and track your progress to elite status!">
+    <link rel="canonical" href="https://fitness-age-calculator.netlify.app/">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💪</text></svg>">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Fitness Age Calculator - What Should You Be Lifting?">
+    <meta property="og:description" content="Find out your strength goals based on your age and weight. See what you should be lifting and track your progress to elite status!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fitness-age-calculator.netlify.app/">
+    <meta property="og:site_name" content="Fitness Age Calculator">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Fitness Age Calculator - What Should You Be Lifting?">
+    <meta name="twitter:description" content="Find out your strength goals based on your age and weight. See what you should be lifting and track your progress to elite status!">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-X5DD2JNMJX"></script>
@@ -610,10 +624,61 @@
             color: #999;
             font-size: 0.9em;
         }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        nav a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        nav a:hover { text-decoration: underline; }
+        .nav-brand { font-weight: 700; font-size: 1.1em; }
+        .nav-links { display: flex; gap: 20px; }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9em;
+        }
+        footer a { color: rgba(255,255,255,0.9); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 15px; }
+
+        .faq-section { text-align: left; margin-top: 20px; }
+        .faq-item { margin-bottom: 20px; }
+        .faq-item h3 {
+            color: #667eea;
+            font-size: 1.05em;
+            margin-bottom: 8px;
+        }
+        .faq-item p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <nav>
+            <a href="/" class="nav-brand">Fitness Age Calculator</a>
+            <div class="nav-links">
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+            </div>
+        </nav>
+
         <div class="card">
             <h1>💪 Fitness Age Calculator</h1>
             <p class="subtitle">Discover your strength goals & find out your fitness age</p>
@@ -830,11 +895,53 @@
             </div>
         </div>
 
+        <!-- FAQ Section -->
+        <div class="card">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-section">
+                <div class="faq-item">
+                    <h3>What is a fitness age?</h3>
+                    <p>Your fitness age is an estimate of how old your body "acts" based on your strength levels. It compares your bench press, squat, and deadlift strength-to-bodyweight ratios against age-adjusted standards. If your fitness age is lower than your actual age, it means you're stronger than the average person your age.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How are the strength goals calculated?</h3>
+                    <p>Strength goals are calculated using bodyweight multipliers derived from widely recognized strength standards. For example, a male intermediate bench press goal is 1.0x bodyweight, while elite is 1.75x bodyweight. These multipliers differ for men and women to reflect physiological differences in strength potential.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is a 1 rep max (1RM)?</h3>
+                    <p>A one-rep max (1RM) is the maximum amount of weight you can lift for a single repetition with proper form. It's the standard way to measure maximal strength for a given exercise. If you don't know your exact 1RM, you can estimate it based on the heaviest weight you've lifted for multiple reps.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How accurate is the fitness age calculation?</h3>
+                    <p>The fitness age is a fun estimate based on general population strength standards. It provides a useful benchmark, but individual results will vary based on factors like training history, genetics, body composition, and limb proportions. It's best used as a motivational tool rather than a precise medical measurement.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Why only bench, squat, and deadlift?</h3>
+                    <p>Bench press, squat, and deadlift are considered the "big three" compound lifts in strength training. Together, they test upper body pushing strength, lower body strength, and posterior chain strength, giving a well-rounded picture of overall strength. They're also the most standardized lifts with the most available data for comparison.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my data stored anywhere?</h3>
+                    <p>No. All calculations happen directly in your browser. Your age, weight, and lift numbers are never sent to a server or stored in a database. Your data stays on your device.</p>
+                </div>
+            </div>
+        </div>
+
         <!-- Coming Soon Section -->
         <div class="card" style="text-align: center; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
             <h3>🎯 More Fitness Calculators Coming Soon!</h3>
             <p style="margin-top: 10px;">• Animal Strength Comparison<br>• What % Can You Outlift<br>• Workout Streak Tracker</p>
         </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="/">Calculator</a>
+                <a href="/about">About</a>
+                <a href="/contact">Contact</a>
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+            </div>
+            <p>&copy; 2026 Fitness Age Calculator. All rights reserved.</p>
+        </footer>
     </div>
 
     <script>
